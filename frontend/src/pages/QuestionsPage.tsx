@@ -1,54 +1,45 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { MyContext } from '../context';
-import { Question } from '../types/Question';
+import React, { useState } from "react";
+import { MyContext } from "../context";
+import QuestionWrapper from "../Components/QuestionWrapper";
+import { Question } from "../types/Question";
 
-
-interface QuestionPageProps extends Question{
-  onAnswerSelected: Function,
-}
-
-const QuestionsPage: React.FC<QuestionPageProps> = ({ question, options, correctAnswerIndex, solutionText, onAnswerSelected }) => {
+const QuestionsPage: React.FC = () => {
   // const { setMyState } = useContext(MyContext);
 
   // useEffect(() => {
   //   // Load your list of questions here and set it in the context
   //   const questions = ['Question 1', 'Question 2', 'Question 3'];
   //   setMyState(questions);
-  // }, [setMyState]); 
+  // }, [setMyState]);
 
   // TODO move all the logic to a Question Component instead
-  const [selectedOption, setSelectedOption] = useState('');
-  const handleOptionChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-    setSelectedOption(event.target.value);
-  };
+  const [selectedOption, setSelectedOption] = useState(-1);
+  const [currQuestion, setCurrQuestion] = useState<Question>({
+    question: "Why are you dumb",
+    options: ["Option 1", "Option 2", "Option 3"],
+    correctAnswerIndex: 2,
+    solutionText: "Oh you are dumb",
+  });
 
   const handleAnswerButtonClick = () => {
-    onAnswerSelected(selectedOption);
+    //TODO
+    //onAnswerSelected(selectedOption);
   };
 
   const handleNextButtonClick = () => {
-    setSelectedOption('');
-    onAnswerSelected(null);
+    //TODO
+    //setSelectedOption("");
+    //onAnswerSelected(null);
   };
 
- return (
+  return (
     <div className="max-w-sm mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">{question}</h2>
-      <div className="grid grid-cols-1 gap-4">
-        {options.map((option) => (
-          <label key={option} className="flex items-center">
-            <input
-              type="radio"
-              name="option"
-              value={option}
-              checked={selectedOption === option}
-              onChange={handleOptionChange}
-              className="form-radio h-5 w-5 text-gray-600"
-            />
-            <span className="ml-2 text-gray-700">{option}</span>
-          </label>
-        ))}
-      </div>
+      <QuestionWrapper
+        handleOptionChange={ (option: number) => { setSelectedOption(option) }}
+        currQuestion={currQuestion}
+        selectedOption={selectedOption}
+        showSolution={false}
+      />
       <div className="mt-8">
         <button
           onClick={handleNextButtonClick}
@@ -60,7 +51,7 @@ const QuestionsPage: React.FC<QuestionPageProps> = ({ question, options, correct
           onClick={handleAnswerButtonClick}
           disabled={!selectedOption}
           className={`${
-            selectedOption === options[correctAnswerIndex]
+            selectedOption === currQuestion.correctAnswerIndex
               ? 'bg-green-500 hover:bg-green-600'
               : 'bg-red-500 hover:bg-red-600'
           } text-white font-semibold py-2 px-4 rounded`}
