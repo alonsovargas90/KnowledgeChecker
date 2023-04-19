@@ -15,8 +15,12 @@ const QuestionsPage: React.FC = () => {
   // TODO move all the logic to a Question Component instead
   const [selectedOption, setSelectedOption] = useState(-1);
   const [currQuestion, setCurrQuestion] = useState<Question>({
-    question: "Why are you dumb",
-    options: ["Option 1", "Option 2", "Option 3"],
+    question: "What's the core idea behind classes?",
+    options: [
+      "Classes are the same as JavaScript objects - just a different syntax.",
+      "Classes are blueprints for JavaScript objects.",
+      "Classes are a TypeScript-only feature that does neither exist in JavaScript, nor in other programming languages.",
+    ],
     correctAnswerIndex: 2,
     solutionText: "Oh you are dumb",
   });
@@ -33,31 +37,39 @@ const QuestionsPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto mt-8">
+    <div className=" mx-auto mt-8 w">
       <QuestionWrapper
-        handleOptionChange={ (option: number) => { setSelectedOption(option) }}
+        handleOptionChange={(option: number) => {
+          setSelectedOption(option);
+        }}
         currQuestion={currQuestion}
         selectedOption={selectedOption}
         showSolution={false}
       />
-      <div className="mt-8">
+      <div className="mt-8 flex justify-center">
+        <button
+          onClick={handleAnswerButtonClick}
+          className="bg-blue-850 text-black-300 font-semibold py-2 px-4 rounded mr-4"
+        >
+          Check answer
+        </button>
         <button
           onClick={handleNextButtonClick}
           className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded mr-4"
         >
           Next
         </button>
-        <button
+        {/* <button
           onClick={handleAnswerButtonClick}
           disabled={!selectedOption}
           className={`${
             selectedOption === currQuestion.correctAnswerIndex
-              ? 'bg-green-500 hover:bg-green-600'
-              : 'bg-red-500 hover:bg-red-600'
+              ? "bg-green-500 hover:bg-green-600" #add2cc
+              : "bg-red-500 hover:bg-red-600" #fdaea0
           } text-white font-semibold py-2 px-4 rounded`}
         >
           solutionText
-        </button>
+        </button> */}
       </div>
     </div>
   );

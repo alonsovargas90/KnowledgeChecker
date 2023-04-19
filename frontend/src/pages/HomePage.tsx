@@ -27,8 +27,9 @@ const Home: React.FC = () => {
               >
                 <div className="flex-1 flex flex-col p-8">
                   <h3 className="text-gray-900 text-lg font-medium">
-                    {category.name}
+                    {category.name} 
                   </h3>
+                  <p>10 Questions</p>
                 </div>
                 <div>
                   <a

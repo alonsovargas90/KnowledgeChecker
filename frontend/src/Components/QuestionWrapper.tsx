@@ -1,5 +1,6 @@
 import React from "react";
 import { Question } from "../types/Question";
+import Answer from "./Answer";
 
 interface QuestionProps {
   selectedOption: number;
@@ -17,8 +18,13 @@ const QuestionWrapper: React.FC<QuestionProps> = ({
   const { question, options, correctAnswerIndex, solutionText } = currQuestion;
   return (
     <>
+      <Answer
+        isCorrect={selectedOption === correctAnswerIndex}
+        answer={solutionText}
+      />
       <h2 className="text-3xl font-sans mt-32 md:mt-48 lg:mt-64 font-bold text-gray-800 dark:text-gray-300 text-center">
         {question}
+        What's the core idea behind classes?
       </h2>
       {showSolution && <p>{solutionText}</p>}
 
